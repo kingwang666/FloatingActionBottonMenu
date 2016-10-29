@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wang.floatingactionmenu.FloatingActionLineMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/percent90WhiteColor"
+        fab:fab_addButtonPlusIconColor="@color/red300"
+        fab:fab_addButtonSize="mini"
+        fab:fab_backgroundColor="@color/blue300"
+        fab:fab_expandDirection="up"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+
+        <com.wang.floatingactionmenu.CustomFloatingActionButton
+            android:id="@+id/bottom_1_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/red400"
+            fab:fab_size="normal"
+            fab:fab_title="Action A"
+            fab:fab_icon="@drawable/ic_action_picture_light"/>
+
+        <com.wang.floatingactionmenu.CustomFloatingActionButton
+            android:id="@+id/bottom_2_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/blue700"
+            fab:fab_size="mini"
+            fab:fab_title="Action with a very long name that won't fit on the screen "
+            fab:fab_icon="@drawable/ic_action_camera_light"/>
+
+    </com.wang.floatingactionmenu.FloatingActionLineMenu>
+
+
+    <com.wang.floatingactionmenu.FloatingActionLineMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/percent90WhiteColor"
+        fab:fab_addButtonSize="mini"
+        fab:fab_backgroundColor="@color/red300"
+        fab:fab_expandDirection="right"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="down"
+        fab:fab_addButtonIcon="@drawable/ic_action_chat_light">
+
+        <com.wang.floatingactionmenu.CustomFloatingActionButton
+            android:id="@+id/top_1_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/red400"
+            fab:fab_size="normal"
+            fab:fab_title="Action A"
+            fab:fab_icon="@drawable/ic_action_picture_light"/>
+
+        <com.wang.floatingactionmenu.CustomFloatingActionButton
+            android:id="@+id/top_2_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/blue700"
+            fab:fab_size="mini"
+            fab:fab_title="Action with a very long name that won't fit on the screen "
+            fab:fab_icon="@drawable/ic_action_camera_light"/>
+
+    </com.wang.floatingactionmenu.FloatingActionLineMenu>
+
+</FrameLayout>

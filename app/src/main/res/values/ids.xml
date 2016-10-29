@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fab_1" type="id"/>
+    <item name="fab_2" type="id"/>
+    <item name="fab_3" type="id"/>
+    <item name="fab_4" type="id"/>
+    <item name="fab_5" type="id"/>
+    <item name="fab_6" type="id"/>
+    <item name="fab_7" type="id"/>
+    <item name="fab_8" type="id"/>
+    <item name="fab_9" type="id"/>
+    <item name="fab_10" type="id"/>
+    <item name="fab_11" type="id"/>
+</resources>
