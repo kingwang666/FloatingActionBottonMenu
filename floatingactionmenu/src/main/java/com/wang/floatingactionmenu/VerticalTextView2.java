@@ -13,7 +13,7 @@ import android.view.View;
  * Author: wang
  */
 
-public class VerTextView extends View {
+public class VerticalTextView2 extends View {
 
     public static enum StartAlign {
 
@@ -53,13 +53,13 @@ public class VerTextView extends View {
     /**
      * 字体高度
      */
-    private int mFontHeight;
-    private float mFontOffsetY;
+    private float mFontHeight;
+    private float mFontBaseLine;
 
     // 列宽度
     private int mLineWidth = 0;
     // 列间距
-    private int mLineSpacing = 0;
+    private int mLineSpacing = 20;
 
     private int specHeight;
     private int specWidth;
@@ -75,34 +75,35 @@ public class VerTextView extends View {
 
     private boolean isMeasure;
 
-    public VerTextView(Context context) {
+    public VerticalTextView2(Context context) {
         this(context, null);
     }
 
-    public VerTextView(Context context, AttributeSet attrs) {
+    public VerticalTextView2(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public VerTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public VerticalTextView2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        if (attrs != null) {
-//            //获取自定义属性的值
-//            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VerTextView, defStyleAttr, 0);
-//            try {
-//                mText = a.getString(R.styleable.VerTextView_vText);
-//                mTextColor = a.getColor(R.styleable.VerTextView_vTextColor, Color.BLACK);
-//                mTextSize = a.getDimensionPixelSize(R.styleable.VerTextView_vTextSize, 40);
-//                vTextNum = a.getInt(R.styleable.VerTextView_vTextNum, -1);
-//                int align = a.getInt(R.styleable.VerTextView_vTextStartAlign, StartAlign.RIGHT.getValue());
-//                if (StartAlign.LEFT.getValue() == align) {
-//                    textStartAlign = StartAlign.LEFT;
-//                } else {
-//                    textStartAlign = StartAlign.RIGHT;
-//                }
-//            } finally {
-//                a.recycle();
-//            }
-//        }
+        if (attrs != null) {
+            //获取自定义属性的值
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.VerticalTextView2, defStyleAttr, 0);
+            try {
+                mText = a.getString(R.styleable.VerticalTextView2_ver_text);
+                mTextColor = a.getColor(R.styleable.VerticalTextView2_ver_textColor, Color.BLACK);
+                mTextSize = a.getDimensionPixelSize(R.styleable.VerticalTextView2_ver_textSize, 40);
+                vTextNum = a.getInt(R.styleable.VerticalTextView2_ver_textNum, -1);
+                mLineSpacing = a.getDimensionPixelOffset(R.styleable.VerticalTextView2_ver_lineSpacing, 20);
+                int align = a.getInt(R.styleable.VerticalTextView2_ver_textStartAlign, StartAlign.RIGHT.getValue());
+                if (StartAlign.LEFT.getValue() == align) {
+                    textStartAlign = StartAlign.LEFT;
+                } else {
+                    textStartAlign = StartAlign.RIGHT;
+                }
+            } finally {
+                a.recycle();
+            }
+        }
         mPaint = new Paint();
         mPaint.setTextSize(mTextSize);
         mPaint.setColor(mTextColor);
@@ -119,23 +120,23 @@ public class VerTextView extends View {
         //绘制文字
         char StringItem;
         boolean isRight = StartAlign.RIGHT == textStartAlign;
-        float textHeight = mFontHeight + mFontOffsetY;
-        int viewHeight = getHeight();
-        float mTextPosY = -mFontOffsetY;
+        float textHeight = mFontHeight;
+        int viewHeight = specHeight;
+        float mTextPosY = mFontBaseLine;
         float mTextPosX = isRight ? getWidth() : 0;
         mTextPosX += isRight ? -mLineWidth >> 1 : mLineWidth >> 1;//字体居住绘制 x起始位置-mLineWidth>>1
         int textLength = mText.length();
         for (int i = 0; i < textLength; i++) {
             StringItem = mText.charAt(i);
-            mTextPosY += textHeight;
             if (mTextPosY > viewHeight) {
-                mTextPosY = textHeight - mFontOffsetY;
+                mTextPosY = mFontBaseLine;
                 mTextPosX += isRight ? -mLineWidth : mLineWidth;
                 if (mTextPosX > specWidth) {
                     return;
                 }
             }
             canvas.drawText(String.valueOf(StringItem), mTextPosX, mTextPosY, mPaint);
+            mTextPosY += textHeight;
         }
     }
 
@@ -154,11 +155,13 @@ public class VerTextView extends View {
         setMeasuredDimension(specWidth, specHeight);
     }
 
+
+
     private void measureWH(int heightMeasureSpec) {
         int heightMode = MeasureSpec.getMode(heightMeasureSpec); //获取高的模式
         int heightSize = MeasureSpec.getSize(heightMeasureSpec); //获取高的尺寸
 
-        float textHeight = mFontHeight + mFontOffsetY;
+        int textHeight = (int) mFontHeight;
         int textLength = null == mText ? 0 : mText.length();
 
         //高度
@@ -169,15 +172,13 @@ public class VerTextView extends View {
             //wrap_content
             float tempHeight = Math.min(textHeight * textLength, heightSize);
             if (vTextNum != -1) {
-                tempHeight = (vTextNum + 1) * textLength;
+                tempHeight = vTextNum * textHeight;
             }
             specHeight = (int) (getPaddingTop() + tempHeight + getPaddingBottom());
         }
 
         float lineNum = textHeight * textLength / specHeight;
-//        if ((lineNum + "").contains(".")) {
-//            lineNum = Integer.parseInt((lineNum + "").substring(0, (lineNum + "").indexOf(".")));
-//        }
+
         int textWidth = (int) (Math.ceil(lineNum) * mLineWidth);
         specWidth = getPaddingLeft() + textWidth + getPaddingRight();
     }
@@ -233,8 +234,8 @@ public class VerTextView extends View {
         Paint.FontMetrics fm = mPaint.getFontMetrics();
 
         // 获得字体高度
-        mFontHeight = (int) (Math.ceil(fm.bottom - fm.top));
-        mFontOffsetY = fm.ascent - fm.top;
+        mFontHeight = fm.bottom - fm.top;
+        mFontBaseLine = - fm.top;
 
     }
 

@@ -91,6 +91,7 @@ public abstract class MenuAnimationHandler {
                     labelLp.setMargins(subActionItem.labelX, subActionItem.labelY, 0, 0);
                 }
                 subActionItem.label.setLayoutParams(labelLp);
+//                subActionItem.label.requestLayout();
             }
         }
         else if(actionType == ActionType.CLOSING) {

@@ -17,9 +17,10 @@ import com.wang.floatingactionmenu.RotatingDrawable;
 import com.wang.floatingactionmenu.SubActionButton;
 import com.wang.floatingactionmenu.interfaces.MenuStateChangeListener;
 import com.wang.floatingactionmenu.interfaces.OnFloatingActionClickListener;
+import com.wang.floatingactionmenu.interfaces.OnFloatingActionLabelClickListener;
 
 
-public class CircleMenuActivity extends AppCompatActivity implements OnFloatingActionClickListener {
+public class CircleMenuActivity extends AppCompatActivity implements OnFloatingActionClickListener, OnFloatingActionLabelClickListener {
 
     FloatingActionButton mAddFab;
 
@@ -100,8 +101,9 @@ public class CircleMenuActivity extends AppCompatActivity implements OnFloatingA
                 .setExpandDirection(FloatingActionLineMenu2.EXPAND_RIGHT)
                 .setLabelPosition(FloatingActionLineMenu2.LABELS_ON_DOWN_SIDE)
                 .addSubFABView(this, R.drawable.ic_action_place, FloatingActionButton.SIZE_NORMAL)
-                .addSubFABView(this, R.drawable.ic_action_picture)
+                .addSubFABView(this, "喵帕斯", R.drawable.ic_action_picture)
                 .addSubFABView(this, R.drawable.ic_action_headphones)
+                .setLabelClickListener(this)
                 .setFloatingActionClickListener(this)
                 .attachTo(mAddFab2)
                 .build();
@@ -114,6 +116,12 @@ public class CircleMenuActivity extends AppCompatActivity implements OnFloatingA
 
     @Override
     public void onMainClick(boolean open) {
+        Log.d("CircleMenuActivity", "main " + (open ? "open" : "close") + " click");
 //        Toast.makeText(this, "main " + (open ? "open" : "close") + " click", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLabelClick(int position) {
+        Toast.makeText(this, "label " + position + " click", Toast.LENGTH_SHORT).show();
     }
 }

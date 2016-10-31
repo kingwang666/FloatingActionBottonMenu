@@ -131,6 +131,7 @@ public abstract class FloatingActionMenu implements View.OnClickListener {
                 if (item.label != null){
                     addViewToCurrentContainer(item.label);
                     item.label.setAlpha(0);
+                    item.label.setOnClickListener(this);
                 }
                 item.view.post(new FloatingActionMenu.ItemViewQueueListener(item));
             }

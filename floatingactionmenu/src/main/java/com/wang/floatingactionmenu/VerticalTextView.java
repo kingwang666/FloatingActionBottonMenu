@@ -11,6 +11,7 @@ import android.widget.TextView;
  * Created on 2016/5/20.
  * Author: wang
  */
+@Deprecated
 public class VerticalTextView extends TextView {
     boolean topDown = false;
 
