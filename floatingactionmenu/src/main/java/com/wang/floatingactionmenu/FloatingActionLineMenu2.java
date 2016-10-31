@@ -232,9 +232,10 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
             fab.setLayoutParams(getDefaultLayoutParams());
             fab.setId(subActionItems.size());
             fab.setImageResource(resId);
-            TextView label = new VerticalTextView(context);
-            label.setText("fuck  fuck");
+            VerTextView label = new VerTextView(context);
+            label.setText("我是天才");
             label.setTextColor(Color.RED);
+//            label.setBackgroundColor(Color.BLACK);
             label.setLayoutParams(getDefaultLayoutParams());
             subActionItems.add(new Item(fab, label, 0, 0));
             return this;

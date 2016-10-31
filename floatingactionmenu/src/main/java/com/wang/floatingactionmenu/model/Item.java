@@ -17,7 +17,7 @@ public class Item {
 
     public View view;
 
-    public TextView label;
+    public View label;
 
     public int labelX;
 
@@ -27,7 +27,7 @@ public class Item {
 
     public int labelHeight;
 
-    public Item(View view, TextView label, int width, int height) {
+    public Item(View view, View label, int width, int height) {
         this.view = view;
         this.label = label;
         this.width = width;
