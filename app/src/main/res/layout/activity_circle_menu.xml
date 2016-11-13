@@ -26,11 +26,4 @@
         app:srcCompat="@drawable/ic_action_important"/>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_fab_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-
 </FrameLayout>

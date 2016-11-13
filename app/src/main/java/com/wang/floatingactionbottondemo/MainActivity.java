@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.line_btn).setOnClickListener(this);
         findViewById(R.id.circle_btn).setOnClickListener(this);
+        findViewById(R.id.system_overlay_btn).setOnClickListener(this);
     }
 
     @Override
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.circle_btn:
                 Intent intent1 = new Intent(MainActivity.this, CircleMenuActivity.class);
                 startActivity(intent1);
+                break;
+            case R.id.system_overlay_btn:
+                Intent intent2 = new Intent(MainActivity.this, SystemOverlayMenuActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

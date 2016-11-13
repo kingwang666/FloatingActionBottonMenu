@@ -461,29 +461,30 @@ public abstract class FloatingActionMenu implements View.OnClickListener {
     private WindowManager.LayoutParams calculateOverlayContainerParams() {
         // calculate the minimum viable size of overlayContainer
         WindowManager.LayoutParams overlayParams = getDefaultSystemWindowParams();
-        int left = 9999, right = 0, top = 9999, bottom = 0;
-        for (int i = 0; i < subActionItems.size(); i++) {
-            int lm = subActionItems.get(i).x;
-            int tm = subActionItems.get(i).y;
-
-            if (lm < left) {
-                left = lm;
-            }
-            if (tm < top) {
-                top = tm;
-            }
-            if (lm + subActionItems.get(i).width > right) {
-                right = lm + subActionItems.get(i).width;
-            }
-            if (tm + subActionItems.get(i).height > bottom) {
-                bottom = tm + subActionItems.get(i).height;
-            }
-        }
-        overlayParams.width = right - left;
-        overlayParams.height = bottom - top;
-        overlayParams.x = left;
-        overlayParams.y = top;
-        overlayParams.gravity = Gravity.TOP | Gravity.LEFT;
+//        int left = 9999, right = 0, top = 9999, bottom = 0;
+//        for (int i = 0; i < subActionItems.size(); i++) {
+//            int lm = subActionItems.get(i).x - 10;
+//            int tm = subActionItems.get(i).y - 10;
+//
+//            if (lm < left) {
+//                left = lm;
+//            }
+//            if (tm < top) {
+//                top = tm;
+//            }
+//            if (lm + subActionItems.get(i).width + 10 > right) {
+//                right = lm + subActionItems.get(i).width + 10;
+//            }
+//            if (tm + subActionItems.get(i).height + 10 > bottom) {
+//                bottom = tm + subActionItems.get(i).height + 10;
+//            }
+//        }
+//        overlayParams.width = right - left;
+//        overlayParams.height = bottom - top ;
+//        overlayParams.x = left;
+//        overlayParams.y = top;
+        overlayParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        overlayParams.height = WindowManager.LayoutParams.MATCH_PARENT;
         return overlayParams;
     }
 

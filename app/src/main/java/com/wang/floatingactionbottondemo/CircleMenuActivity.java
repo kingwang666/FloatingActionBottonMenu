@@ -1,7 +1,5 @@
 package com.wang.floatingactionbottondemo;
 
-import android.content.Context;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -24,8 +22,6 @@ public class CircleMenuActivity extends AppCompatActivity implements OnFloatingA
 
     FloatingActionButton mAddFab;
 
-    FloatingActionButton mAddFab2;
-
     FloatingActionButton mStarFab;
 
     @Override
@@ -35,22 +31,9 @@ public class CircleMenuActivity extends AppCompatActivity implements OnFloatingA
 
         mAddFab = (FloatingActionButton) findViewById(R.id.add_fab);
         mStarFab = (FloatingActionButton) findViewById(R.id.star_fab);
-        mAddFab2 = (FloatingActionButton) findViewById(R.id.add_fab_2);
         mAddFab.setImageDrawable(new RotatingDrawable(ContextCompat.getDrawable(this, R.drawable.ic_action_new)));
-        mAddFab2.setImageDrawable(new RotatingDrawable(ContextCompat.getDrawable(this, R.drawable.ic_action_new)));
-        // Set up the white button on the lower right corner
-        // more or less with default parameter
-//        final ImageView fabIconNew = new ImageView(this);
-//        fabIconNew.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_new_light));
-//        final FloatingActionButton rightLowerButton = new FloatingActionButton.BaseBuilder(this)
-//                .setContentView(fabIconNew)
-//                .build();
-//
-//        SubActionButton.BaseBuilder rLSubBuilder = new SubActionButton.BaseBuilder(this);
-//        ImageView rlIcon1 = new ImageView(this);
-//        ImageView rlIcon2 = new ImageView(this);
-//        ImageView rlIcon3 = new ImageView(this);
-//        ImageView rlIcon4 = new ImageView(this);
+
+
         FloatingActionButton fab1 = new FloatingActionButton(this);
         fab1.setImageResource(R.drawable.ic_action_chat);
         fab1.setBackgroundTintList(mAddFab.getBackgroundTintList());
@@ -96,17 +79,6 @@ public class CircleMenuActivity extends AppCompatActivity implements OnFloatingA
                 .attachTo(mStarFab)
                 .build();
 
-
-        new FloatingActionLineMenu2.Builder(this)
-                .setExpandDirection(FloatingActionLineMenu2.EXPAND_RIGHT)
-                .setLabelPosition(FloatingActionLineMenu2.LABELS_ON_DOWN_SIDE)
-                .addSubFABView(this, R.drawable.ic_action_place, FloatingActionButton.SIZE_NORMAL)
-                .addSubFABView(this, "喵帕斯", R.drawable.ic_action_picture)
-                .addSubFABView(this, R.drawable.ic_action_headphones)
-                .setLabelClickListener(this)
-                .setFloatingActionClickListener(this)
-                .attachTo(mAddFab2)
-                .build();
     }
 
     @Override

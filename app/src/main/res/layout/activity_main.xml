@@ -22,4 +22,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:text="circle"/>
+
+    <Button
+        android:id="@+id/system_overlay_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="system overlay"/>
 </LinearLayout>

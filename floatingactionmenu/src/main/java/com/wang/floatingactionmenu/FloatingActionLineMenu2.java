@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wang.floatingactionmenu.animation.MenuAnimationHandler;
+import com.wang.floatingactionmenu.exception.NoSupportException;
 import com.wang.floatingactionmenu.interfaces.MenuStateChangeListener;
 import com.wang.floatingactionmenu.interfaces.OnFloatingActionClickListener;
 import com.wang.floatingactionmenu.interfaces.OnFloatingActionLabelClickListener;
@@ -270,30 +271,54 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
             return this;
         }
 
-        public Builder addSubActionView(View subActionView, String text, @ColorInt int textColor, int width, int height) {
+        public Builder addSubActionView(View subActionView, String text, @ColorInt int textColor, int width, int height)  {
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             subActionView.setId(subActionItems.size());
             Context context = new ContextThemeWrapper(subActionView.getContext(), mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context);
-            label.setText(text);
-            label.setTextColor(textColor);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context);
+                ((TextView)label).setText(text);
+                ((TextView)label).setTextColor(textColor);
+            }
+            else {
+                label = new VerticalTextView2(context);
+                ((VerticalTextView2)label).setText(text);
+                ((VerticalTextView2)label).setTextColor(textColor);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(subActionView, label, width, height));
             return this;
         }
 
-        public Builder addSubActionView(View subActionView, String text, int width, int height) {
+        public Builder addSubActionView(View subActionView, String text, int width, int height)  {
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             subActionView.setId(subActionItems.size());
             Context context = new ContextThemeWrapper(subActionView.getContext(), mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context);
-            label.setText(text);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context);
+                ((TextView)label).setText(text);
+            }
+            else {
+                label = new VerticalTextView2(context);
+                ((VerticalTextView2)label).setText(text);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(subActionView, label, width, height));
             return this;
         }
 
-        public Builder addSubFABView(Context context, String text, @ColorInt int textColor, ColorStateList color, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height) {
+        public Builder addSubFABView(Context context, String text, @ColorInt int textColor, ColorStateList color, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height)  {
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             FloatingActionButton fab = new FloatingActionButton(context);
             fab.setSize(size);
             fab.setLayoutParams(getDefaultLayoutParams());
@@ -301,16 +326,27 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
             fab.setImageResource(resId);
             fab.setBackgroundTintList(color);
             Context context2 = new ContextThemeWrapper(context, mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context2);
-            label.setText(text);
-            label.setTextColor(textColor);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context2);
+                ((TextView)label).setText(text);
+                ((TextView)label).setTextColor(textColor);
+            }
+            else {
+                label = new VerticalTextView2(context2);
+                ((VerticalTextView2)label).setText(text);
+                ((VerticalTextView2)label).setTextColor(textColor);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(fab, label, width, height));
             return this;
         }
 
-        public Builder addSubFABView(Context context, String text, ColorStateList color, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height) {
+        public Builder addSubFABView(Context context, String text, ColorStateList color, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height){
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             FloatingActionButton fab = new FloatingActionButton(context);
             fab.setSize(size);
             fab.setLayoutParams(getDefaultLayoutParams());
@@ -318,8 +354,15 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
             fab.setImageResource(resId);
             fab.setBackgroundTintList(color);
             Context context2 = new ContextThemeWrapper(context, mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context2);
-            label.setText(text);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context2);
+                ((TextView)label).setText(text);
+            }
+            else {
+                label = new VerticalTextView2(context2);
+                ((VerticalTextView2)label).setText(text);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(fab, label, width, height));
@@ -328,30 +371,51 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
 
 
         public Builder addSubFABView(Context context, String text, @ColorInt int textColor, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height) {
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             FloatingActionButton fab = new FloatingActionButton(context);
             fab.setSize(size);
             fab.setLayoutParams(getDefaultLayoutParams());
             fab.setId(subActionItems.size());
             fab.setImageResource(resId);
             Context context2 = new ContextThemeWrapper(context, mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context2);
-            label.setText(text);
-            label.setTextColor(textColor);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context2);
+                ((TextView)label).setText(text);
+                ((TextView)label).setTextColor(textColor);
+            }
+            else {
+                label = new VerticalTextView2(context2);
+                ((VerticalTextView2)label).setText(text);
+                ((VerticalTextView2)label).setTextColor(textColor);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(fab, label, width, height));
             return this;
         }
 
-        public Builder addSubFABView(Context context, String text, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height) {
+        public Builder addSubFABView(Context context, String text, @DrawableRes int resId, @FloatingActionButton.Size int size, int width, int height)  {
+            if (systemOverlay){
+                throw new NoSupportException();
+            }
             FloatingActionButton fab = new FloatingActionButton(context);
             fab.setSize(size);
             fab.setLayoutParams(getDefaultLayoutParams());
             fab.setId(subActionItems.size());
             fab.setImageResource(resId);
             Context context2 = new ContextThemeWrapper(context, mLabelsStyle);
-            VerticalTextView2 label = new VerticalTextView2(context2);
-            label.setText(text);
+            View label;
+            if (isUpDown()){
+                label = new TextView(context2);
+                ((TextView)label).setText(text);
+            }
+            else {
+                label = new VerticalTextView2(context2);
+                ((VerticalTextView2)label).setText(text);
+            }
             label.setLayoutParams(getDefaultLayoutParams());
             label.setTag(subActionItems.size());
             subActionItems.add(new Item(fab, label, width, height));
@@ -493,6 +557,10 @@ public class FloatingActionLineMenu2 extends FloatingActionMenu {
             View view = LayoutInflater.from(context).inflate(resId, null, false);
             view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             return addSubActionView(view, text, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+
+        private boolean isUpDown(){
+            return mExpandDirection == EXPAND_UP || mExpandDirection == EXPAND_DOWN;
         }
 
         @Override
