@@ -21,6 +21,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
@@ -290,8 +291,8 @@ public class FloatingActionLineMenu extends ViewGroup {
         int width = 0;
         int height = 0;
 
-        mMaxButtonWidth = 0;
-        mMaxButtonHeight = 0;
+//        mMaxButtonWidth = 0;
+//        mMaxButtonHeight = 0;
         int maxLabelWidth = 0;
         int maxLabelHeight = 0;
 
@@ -392,6 +393,7 @@ public class FloatingActionLineMenu extends ViewGroup {
                         ? r - l - mMaxButtonWidth / 2 - getPaddingRight()
                         : mMaxButtonWidth / 2 + getPaddingLeft();
                 int addButtonLeft = buttonsHorizontalCenter - mAddButton.getMeasuredWidth() / 2;
+                Log.e("fuck fuck", addButtonLeft + " " + mMaxButtonWidth);
                 mAddButton.layout(addButtonLeft, addButtonY, addButtonLeft + mAddButton.getMeasuredWidth(), addButtonY + mAddButton.getMeasuredHeight());
 
 
@@ -412,7 +414,9 @@ public class FloatingActionLineMenu extends ViewGroup {
                     float expandedTranslation = 0f;
 
                     child.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setVisibility(mExpanded ? VISIBLE : GONE);
+//                    child.setVisibility(mExpanded ? VISIBLE : GONE);
+//                    child.setAlpha(mExpanded ? 1f : 0f);
+
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
                     params.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
@@ -444,13 +448,16 @@ public class FloatingActionLineMenu extends ViewGroup {
 
 
                         label.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setVisibility(mExpanded ? VISIBLE : GONE);
+//                        label.setVisibility(mExpanded ? VISIBLE : GONE);
+//                        label.setAlpha(mExpanded ? 1f : 0f);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
                         labelParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
                         labelParams.setAnimationsTarget(label);
+                        label.setVisibility(mExpanded ? VISIBLE : GONE);
                     }
+                    child.setVisibility(mExpanded ? VISIBLE : GONE);
 
                     nextY = expandUp ?
                             childY - mButtonSpacing :
@@ -487,7 +494,8 @@ public class FloatingActionLineMenu extends ViewGroup {
                     float expandedTranslation = 0f;
 
                     child.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setVisibility(mExpanded ? VISIBLE : GONE);
+//                    child.setVisibility(mExpanded ? VISIBLE : GONE);
+//                    child.setAlpha(mExpanded ? 1f : 0f);
 
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -520,14 +528,16 @@ public class FloatingActionLineMenu extends ViewGroup {
 
 
                         label.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setVisibility(mExpanded ? VISIBLE : GONE);
+//                        label.setVisibility(mExpanded ? VISIBLE : GONE);
+//                        label.setAlpha(mExpanded ? 1f : 0f);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
                         labelParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
                         labelParams.setAnimationsTarget(label);
+                        label.setVisibility(mExpanded ? VISIBLE : GONE);
                     }
-
+                    child.setVisibility(mExpanded ? VISIBLE : GONE);
 
                     nextX = expandLeft ?
                             childX - mButtonSpacing :
