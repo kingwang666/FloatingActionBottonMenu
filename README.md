@@ -1,2 +1,2 @@
 # FloatingActionBottonMenu
-开发ing
+一个 圆形/直线的FloatigActionBottonMenu，支持自定义动画和结束位置
