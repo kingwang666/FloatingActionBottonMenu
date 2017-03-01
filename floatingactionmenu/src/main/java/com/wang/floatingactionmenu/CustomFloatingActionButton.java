@@ -31,6 +31,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.wang.floatingactionmenu.util.ShowHideHelper;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -53,13 +55,13 @@ public class CustomFloatingActionButton extends ImageButton {
     private Drawable mIconDrawable;
     private int mSize;
 
-
-
     private float mCircleSize;
     private float mShadowRadius;
     private float mShadowOffset;
     private int mDrawableSize;
     boolean mStrokeVisible;
+
+    private ShowHideHelper mHelper;
 
     public CustomFloatingActionButton(Context context) {
         this(context, null);
@@ -94,6 +96,39 @@ public class CustomFloatingActionButton extends ImageButton {
         updateDrawableSize();
 
         updateBackground();
+        mHelper = new ShowHideHelper(this, 300);
+    }
+
+    public void hide(){
+        mHelper.hide();
+    }
+
+    public void show(){
+        mHelper.show();
+    }
+
+    public void removeMessage(){
+        mHelper.removeMessage();
+    }
+
+    public void sendEmptyMessageDelayed(){
+        mHelper.sendEmptyMessageDelayed();
+    }
+
+    public void show(int time){
+        mHelper.show(time);
+    }
+
+    public boolean isShow(){
+        return mHelper.isShow();
+    }
+
+    public boolean isRunning(){
+        return mHelper.isRunning();
+    }
+
+    public void setOnShowHideListener(ShowHideHelper.OnShowHideListener listener){
+        mHelper.setOnShowHideListener(listener);
     }
 
 

@@ -29,6 +29,8 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
+import com.wang.floatingactionmenu.util.ShowHideHelper;
+
 @Deprecated
 public class FloatingActionLineMenu extends ViewGroup {
     public static final int EXPAND_UP = 0;
@@ -74,6 +76,8 @@ public class FloatingActionLineMenu extends ViewGroup {
     private int mLabelsPosition;
     private int mButtonsCount;
 
+    public boolean mCanHide;
+
 
     private OnFloatingActionsMenuUpdateListener mListener;
 
@@ -116,6 +120,7 @@ public class FloatingActionLineMenu extends ViewGroup {
         mExpandDirection = attr.getInt(R.styleable.FloatingActionLineMenu_fab_expandDirection, EXPAND_UP);
         mLabelsStyle = attr.getResourceId(R.styleable.FloatingActionLineMenu_fab_labelStyle, 0);
         mLabelsPosition = attr.getInt(R.styleable.FloatingActionLineMenu_fab_labelsPosition, LABELS_ON_LEFT_SIDE);
+        mCanHide = attr.getBoolean(R.styleable.FloatingActionLineMenu_fab_canHide, false);
         attr.recycle();
 
 //        if (mLabelsStyle != 0 && expandsHorizontally()) {
@@ -149,9 +154,9 @@ public class FloatingActionLineMenu extends ViewGroup {
             @Override
             Drawable getIconDrawable() {
                 final Drawable drawable;
-                if (mAddButtonIcon != 0){
+                if (mAddButtonIcon != 0) {
                     drawable = ContextCompat.getDrawable(getContext(), mAddButtonIcon);
-                }else {
+                } else {
                     RotatingDrawable rotatingDrawable = new RotatingDrawable(getDefaultIcon(mAddButtonPlusColor));
                     mRotatingDrawable = rotatingDrawable;
                     drawable = rotatingDrawable;
@@ -181,6 +186,26 @@ public class FloatingActionLineMenu extends ViewGroup {
 
         addView(mAddButton, generateDefaultLayoutParams());
         mButtonsCount++;
+    }
+
+    public void hide() {
+        mAddButton.hide();
+    }
+
+    public void show() {
+        mAddButton.show();
+    }
+
+    public void setOnShowHideListener(ShowHideHelper.OnShowHideListener listener) {
+        mAddButton.setOnShowHideListener(listener);
+    }
+
+    public void show(int time) {
+        mAddButton.show(time);
+    }
+
+    public boolean isShow() {
+        return mAddButton.isShow();
     }
 
     private Drawable getDefaultIcon(int color) {
@@ -387,7 +412,7 @@ public class FloatingActionLineMenu extends ViewGroup {
                     float expandedTranslation = 0f;
 
                     child.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setAlpha(mExpanded ? 1f : 0f);
+                    child.setVisibility(mExpanded ? VISIBLE : GONE);
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
                     params.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
@@ -419,7 +444,7 @@ public class FloatingActionLineMenu extends ViewGroup {
 
 
                         label.setTranslationY(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setAlpha(mExpanded ? 1f : 0f);
+                        label.setVisibility(mExpanded ? VISIBLE : GONE);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -462,7 +487,7 @@ public class FloatingActionLineMenu extends ViewGroup {
                     float expandedTranslation = 0f;
 
                     child.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                    child.setAlpha(mExpanded ? 1f : 0f);
+                    child.setVisibility(mExpanded ? VISIBLE : GONE);
 
                     LayoutParams params = (LayoutParams) child.getLayoutParams();
                     params.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -495,7 +520,7 @@ public class FloatingActionLineMenu extends ViewGroup {
 
 
                         label.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setAlpha(mExpanded ? 1f : 0f);
+                        label.setVisibility(GONE);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
@@ -601,6 +626,9 @@ public class FloatingActionLineMenu extends ViewGroup {
             mExpandScaleX.setTarget(view);
             mExpandScaleY.setTarget(view);
 
+            mCollapseAlpha.addListener(new MyCollapseAnimatorListener(view));
+            mExpandAlpha.addListener(new MyExpandAnimatorListener(view));
+
             // Now that the animations have targets, set them to be played
             if (!animationsSetToPlay) {
                 addLayerTypeListener(mExpandDir, view);
@@ -691,9 +719,21 @@ public class FloatingActionLineMenu extends ViewGroup {
     }
 
     public void toggle() {
+        if (mCanHide && mAddButton.isRunning()) {
+            return;
+        }
         if (mExpanded) {
             collapse();
+            /**
+             * no hide lalala
+             */
+            if (mCanHide) {
+                mAddButton.sendEmptyMessageDelayed();
+            }
         } else {
+            if (mCanHide) {
+                mAddButton.removeMessage();
+            }
             expand();
         }
     }
@@ -721,6 +761,10 @@ public class FloatingActionLineMenu extends ViewGroup {
         mAddButton.setEnabled(enabled);
     }
 
+    public boolean performAddButtonClick() {
+        return mAddButton.performClick();
+    }
+
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -743,6 +787,64 @@ public class FloatingActionLineMenu extends ViewGroup {
             super.onRestoreInstanceState(savedState.getSuperState());
         } else {
             super.onRestoreInstanceState(state);
+        }
+    }
+
+    class MyCollapseAnimatorListener implements Animator.AnimatorListener {
+
+        private View mView;
+
+        public MyCollapseAnimatorListener(View view) {
+            mView = view;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            mView.setVisibility(VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mView.setVisibility(GONE);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
+        }
+    }
+
+    class MyExpandAnimatorListener implements Animator.AnimatorListener {
+
+        private View mView;
+
+        public MyExpandAnimatorListener(View view) {
+            mView = view;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            mView.setVisibility(VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            mView.setVisibility(VISIBLE);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
         }
     }
 
