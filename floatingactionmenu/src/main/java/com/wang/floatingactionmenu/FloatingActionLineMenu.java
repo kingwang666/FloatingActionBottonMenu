@@ -520,7 +520,7 @@ public class FloatingActionLineMenu extends ViewGroup {
 
 
                         label.setTranslationX(mExpanded ? expandedTranslation : collapsedTranslation);
-                        label.setVisibility(GONE);
+                        label.setVisibility(mExpanded ? VISIBLE : GONE);
 
                         LayoutParams labelParams = (LayoutParams) label.getLayoutParams();
                         labelParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
