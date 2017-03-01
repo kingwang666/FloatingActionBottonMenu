@@ -393,7 +393,6 @@ public class FloatingActionLineMenu extends ViewGroup {
                         ? r - l - mMaxButtonWidth / 2 - getPaddingRight()
                         : mMaxButtonWidth / 2 + getPaddingLeft();
                 int addButtonLeft = buttonsHorizontalCenter - mAddButton.getMeasuredWidth() / 2;
-                Log.e("fuck fuck", addButtonLeft + " " + mMaxButtonWidth);
                 mAddButton.layout(addButtonLeft, addButtonY, addButtonLeft + mAddButton.getMeasuredWidth(), addButtonY + mAddButton.getMeasuredHeight());
 
 
